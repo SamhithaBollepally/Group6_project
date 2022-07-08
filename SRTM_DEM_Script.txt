@@ -1,0 +1,17 @@
+Import (1 entry)
+var roi:Table users/tamanglavinia45/Bhilwara
+
+var di = ee.FeatureCollection('users/tamanglavinia45/Bhilwara');
+
+var image = ee.Image('USGS/SRTMGL1_003');
+var data = image.clip(roi);
+print (data)
+var data1 = data.select('elevation');
+print (data1,'elevation')
+Map.addLayer (data1)
+Export.image.toDrive ({
+  image:data1,
+  description: 'srtm_dem_30mt',
+  scale: 30,
+  region: roi,
+})
